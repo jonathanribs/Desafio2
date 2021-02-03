@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,17 +35,17 @@ public class MainController {
 	@GetMapping("/produtos")
 	public List<Produto> listaProdutos(){
 		List<Produto> lista = new ArrayList<>();
-		lista = produtoRepository.findAll();
+		lista = produtoRepository.findAll(Sort.by(Sort.Direction.ASC, "id")); //outra forma seria findByOrderByIdAsc();
 		return lista;
 	}
 	
 	@PutMapping("/produtos")
 	@Transactional
-	public List<Produto> incrementaPontuacao(@RequestParam String id){
+	public ResponseEntity<List<Produto>> incrementaPontuacao(@RequestParam String id){
 		
 		Optional<Produto> p = produtoRepository.findById(Long.parseLong(id));
 		if (p.isEmpty()) {
-			return produtoRepository.findAll();
+			return ResponseEntity.notFound().build();
 		}
 		Produto produto = p.get();
 
@@ -53,7 +54,7 @@ public class MainController {
 		
 		List<Produto> lista = new ArrayList<>();
 		lista = produtoRepository.findAll();
-		return lista;
+		return ResponseEntity.ok(lista);
 	}
 	
 	@PostMapping("/novaCategoria")
