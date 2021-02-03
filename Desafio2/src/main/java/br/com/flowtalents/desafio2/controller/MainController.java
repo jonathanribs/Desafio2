@@ -2,6 +2,7 @@ package br.com.flowtalents.desafio2.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -30,16 +31,29 @@ public class MainController {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
-	@GetMapping("/products")
+	@GetMapping("/produtos")
 	public List<Produto> listaProdutos(){
 		List<Produto> lista = new ArrayList<>();
 		lista = produtoRepository.findAll();
 		return lista;
 	}
 	
-	@PutMapping("/products")
+	@PutMapping("/produtos")
 	@Transactional
-	public void incrementaPontuacao(@RequestParam Long id){
+	public List<Produto> incrementaPontuacao(@RequestParam String id){
+		
+		Optional<Produto> p = produtoRepository.findById(Long.parseLong(id));
+		if (p.isEmpty()) {
+			return produtoRepository.findAll();
+		}
+		Produto produto = p.get();
+
+		Long pontuacao = produto.getPontuacao();
+		produto.setPontuacao(pontuacao + 1L);
+		
+		List<Produto> lista = new ArrayList<>();
+		lista = produtoRepository.findAll();
+		return lista;
 	}
 	
 	@PostMapping("/novaCategoria")
