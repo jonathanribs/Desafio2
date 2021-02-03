@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 
@@ -14,10 +15,19 @@ public class Produto {
 	private Long id;
 	private String titulo;
 	private String descricao;
-	@ManyToOne
+	@ManyToOne @JoinColumn(nullable = false)
 	private Categoria categoria;
 	private Long pontuacao = 0L;
 	
+	@Deprecated
+	public Produto() {
+	}
+	
+	public Produto(String titulo, String descricao, Categoria categoria) {
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.categoria = categoria;
+	}
 	
 	public Long getId() {
 		return id;
