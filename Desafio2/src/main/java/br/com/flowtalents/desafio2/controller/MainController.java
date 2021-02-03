@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.flowtalents.desafio2.model.Categoria;
 import br.com.flowtalents.desafio2.model.Produto;
+import br.com.flowtalents.desafio2.model.SugestaoDeProduto;
 import br.com.flowtalents.desafio2.repository.CategoriaRepository;
 import br.com.flowtalents.desafio2.repository.ProdutoRepository;
 
@@ -56,6 +57,14 @@ public class MainController {
 		lista = produtoRepository.findAll();
 		return ResponseEntity.ok(lista);
 	}
+	
+	@PostMapping("/sugestao")
+	@Transactional
+	public void novaSugestao(@RequestBody @Valid SugestaoDeProduto sugestao) {
+		
+	}
+	
+	
 	
 	@PostMapping("/novaCategoria")
 	@Transactional
