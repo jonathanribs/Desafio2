@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.flowtalents.desafio2.model.Categoria;
 import br.com.flowtalents.desafio2.model.Produto;
 import br.com.flowtalents.desafio2.model.SugestaoDeProduto;
+import br.com.flowtalents.desafio2.model.Usuario;
 import br.com.flowtalents.desafio2.repository.CategoriaRepository;
 import br.com.flowtalents.desafio2.repository.ProdutoRepository;
+import br.com.flowtalents.desafio2.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping("/api")
@@ -32,15 +34,17 @@ public class MainController {
 	private ProdutoRepository produtoRepository;
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
-	@GetMapping("/produtos")
+	@GetMapping("/products")
 	public List<Produto> listaProdutos(){
 		List<Produto> lista = new ArrayList<>();
 		lista = produtoRepository.findAll(Sort.by(Sort.Direction.ASC, "id")); //outra forma seria findByOrderByIdAsc();
 		return lista;
 	}
 	
-	@PutMapping("/produtos")
+	@PutMapping("/products")
 	@Transactional
 	public ResponseEntity<List<Produto>> incrementaPontuacao(@RequestParam String id){
 		
@@ -58,15 +62,32 @@ public class MainController {
 		return ResponseEntity.ok(lista);
 	}
 	
-	@PostMapping("/sugestao")
+	@PostMapping("/form")
 	@Transactional
 	public void novaSugestao(@RequestBody @Valid SugestaoDeProduto sugestao) {
 		
 	}
 	
+	@PostMapping("/security")
+	public ResponseEntity<?> autenticar(@RequestBody @Valid Usuario usuarioInformado){
+		
+		Usuario usuario = usuarioRepository.findByNome(usuarioInformado.getNome());
+		
+		if(usuario == null) {
+			return ResponseEntity.notFound().build();
+		}	
+		
+		if (usuarioInformado.getSenha().equals(usuario.getSenha())) {
+			return ResponseEntity.ok("Usuario Logado");
+		} else {
+			return ResponseEntity.badRequest().build(); //senha inválida
+		}
+		
+	}
 	
 	
-	@PostMapping("/novaCategoria")
+	
+	@PostMapping("/newCategory")
 	@Transactional
 	public ResponseEntity<?> novaCategoria(@RequestParam String nomeCategoria) {
 		
@@ -77,7 +98,7 @@ public class MainController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@PostMapping("/novoProduto")
+	@PostMapping("/newProduct")
 	@Transactional
 	public ResponseEntity<?> novoProduto(@RequestBody @Valid ProdutoForm novoProduto) {
 		

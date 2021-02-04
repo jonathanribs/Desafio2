@@ -18,9 +18,11 @@ public class Produto {
 	@ManyToOne @JoinColumn(nullable = false)
 	private Categoria categoria;
 	private Long pontuacao = 0L;
+	private String urlImagem;
 	
-	@Deprecated
-	public Produto() {
+
+	@Deprecated 
+	public Produto() {//só é usado pelo Spring Data
 	}
 	
 	public Produto(String titulo, String descricao, Categoria categoria) {
@@ -58,6 +60,14 @@ public class Produto {
 	}
 	public void setPontuacao(Long pontuacao) {
 		this.pontuacao = pontuacao;
+	}
+	
+	public String getUrlImagem() {
+		return urlImagem;
+	}
+
+	public void setUrlImagem(String urlImagem) {
+		this.urlImagem = urlImagem;
 	}
 	
 	
