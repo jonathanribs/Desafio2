@@ -80,7 +80,7 @@ public class MainController {
 		if (usuarioInformado.getSenha().equals(usuario.getSenha())) {
 			return ResponseEntity.ok("Usuario Logado");
 		} else {
-			return ResponseEntity.badRequest().build(); //senha inválida
+			return ResponseEntity.badRequest().body("Senha Inválida!"); 
 		}
 		
 	}
@@ -100,9 +100,9 @@ public class MainController {
 	
 	@PostMapping("/newProduct")
 	@Transactional
-	public ResponseEntity<?> novoProduto(@RequestBody @Valid ProdutoForm novoProduto) {
+	public ResponseEntity<?> novoProduto(@RequestBody @Valid ProdutoForm produtoForm) {
 		
-		Produto produto = novoProduto.converter(categoriaRepository);
+		Produto produto = produtoForm.converter(categoriaRepository);
 		
 		if (produto != null) {
 			produtoRepository.save(produto);
