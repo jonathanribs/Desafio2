@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,6 +27,7 @@ import br.com.flowtalents.desafio2.repository.CategoriaRepository;
 import br.com.flowtalents.desafio2.repository.ProdutoRepository;
 import br.com.flowtalents.desafio2.repository.UsuarioRepository;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class MainController {
