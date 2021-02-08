@@ -110,7 +110,7 @@ public class MainController {
 			produtoRepository.save(produto);
 			return ResponseEntity.ok().build();
 		}
-		return ResponseEntity.badRequest().body("É necessário passar um id de categoria válido!");
+		return ResponseEntity.badRequest().body("É necessário passar um id de categoria válido! Certifique-se que a categoria do produto exista antes de cadastrar novo produto!");
 	}
 	
 }
