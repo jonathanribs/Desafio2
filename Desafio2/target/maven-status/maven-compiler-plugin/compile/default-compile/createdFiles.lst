@@ -1,0 +1,11 @@
+br\com\flowtalents\desafio2\config\ErroDeValidacaoHandler.class
+br\com\flowtalents\desafio2\repository\CategoriaRepository.class
+br\com\flowtalents\desafio2\Desafio2Application.class
+br\com\flowtalents\desafio2\repository\ProdutoRepository.class
+br\com\flowtalents\desafio2\model\SugestaoDeProduto.class
+br\com\flowtalents\desafio2\model\Categoria.class
+br\com\flowtalents\desafio2\repository\UsuarioRepository.class
+br\com\flowtalents\desafio2\controller\MainController.class
+br\com\flowtalents\desafio2\model\Produto.class
+br\com\flowtalents\desafio2\model\Usuario.class
+br\com\flowtalents\desafio2\controller\ProdutoForm.class
